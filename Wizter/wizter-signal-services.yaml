@@ -1,0 +1,144 @@
+openapi: 3.0.3
+info:
+  title: Wizter signal service
+  description: |-
+    ### Purpose
+    This API is the Wizter services for signal interaction.
+    
+    ### Security
+    This API should only be called by the municipalities. In the production environment it can only be accessed from the configured ip-address(es) over HTTPS, secured by 2 way SSL. Furthermore the API requires
+    an authorization key specified in the header. A typical call is like:
+    
+    curl -X POST 'https://[baseUrl]/api/signal/0432' \ --header 'Authorization: Wizter-Auth-Key [yourAuthKey]'
+    
+  contact:
+    name: Stipter
+    email: info@stipter.nl
+  version: "0.1"
+
+paths:
+  /signal/{municipalityCode}:
+    parameters:
+      - name: municipalityCode
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/municipalityCode'
+    post:
+      tags:
+        - Signals API
+      summary: Notifies Wizter when a signal is created
+      description: |-
+        This method should be called when a signal is created.
+      requestBody:
+        description: |+
+          Contains
+          * known attributes for signaller, 
+          * description,
+          * urgency,
+          * riskiness and
+          * consent for information sharing.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signal'
+      responses:
+        '201':
+          description: Signal received and stored.
+        '400':
+          description: Bad Request          
+
+components:
+  securitySchemes:
+      ApiKeyAuth:
+         type: apiKey
+         name: Authorization
+         in: header
+         description: 'Prefix the value with \"Wizter-Auth-Key\" to indicate the custom authorization type' 
+
+  schemas:
+    municipalityCode:
+      type: string
+      pattern: ^\d{4}$
+      minLength: 4
+      maxLength: 4
+      description: The Dutch CBS Municipality code, left padded with zeroes to a fixed length of 4 digits.
+      example: "0432"
+
+    phoneTelNo:
+      type: string
+      maxLength: 14
+      pattern: ^\\+?[0-9]{10,14}$
+      description: Dutch telephone number, between 10 and 14 digits, optional plus sign. 
+      example: "0611111111"          
+
+    emailAddress:
+      type: string
+      pattern: ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$
+      maxLength: 200
+      example: "john.doe@gmail.com"              
+
+    signal:
+      type: object
+      required:
+        - signallerFirstName
+        - signallerLastName
+        - signallerKind
+        - description
+        - signalRoutingType
+        - isSubjectContactInformationKnown
+        - isUrgent
+        - isRiskyCase
+        - consentInformationSharing
+      properties:
+        signallerFirstName:
+          type: string
+          description: First name of the signaller.
+        signallerLastName:
+          type: string
+          description: First name of the signaller.
+        signallerRelationship:
+          type: string
+          description: Signaller - Subject relationship.
+          example: "Neighbour"
+        signallerOrganisationName:
+          type: string
+          description: Signaller organisation name.
+          example: "Stipter"
+        signallerEmail:
+          $ref: "#/components/schemas/emailAddress"
+        signallerPhonenumber:
+          $ref: "#/components/schemas/phoneTelNo"
+        description:
+          type: string
+          description: signal description
+        signalRoutingType:
+          type: string
+          enum: [WMO, YOUTH]
+        subjectFirstName:
+          type: string
+          description: First name of the signaller.
+        subjectLastName:
+          type: string
+          description: First name of the signaller.
+        isSubjectContactInformationKnown:
+          type: boolean
+        subjectEmail:
+          $ref: "#/components/schemas/emailAddress"
+        subjectPhonenumber:
+          $ref: "#/components/schemas/phoneTelNo"
+        isUrgent:
+          type: boolean
+        isRiskyCase:
+          type: boolean
+        consentInformationSharing:
+          type: boolean
+        zipCode:
+          type: number
+          maxLength: 5
+      additionalProperties:
+        type: string
+        description: For future use.
+security:
+   - ApiKeyAuth: []
