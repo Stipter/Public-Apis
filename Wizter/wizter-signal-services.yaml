@@ -9,7 +9,7 @@ info:
     This API should only be called by the municipalities. In the production environment it can only be accessed from the configured ip-address(es) over HTTPS, secured by 2 way SSL. Furthermore the API requires
     an authorization key specified in the header. A typical call is like:
     
-    curl -X POST 'https://[baseUrl]/api/signal/0432' \ --header 'Authorization: Wizter-Auth-Key [yourAuthKey]'
+    curl -X POST 'https://[baseUrl]/api/0435/signal' \ --header 'Authorization: Wizter-Auth-Key [yourAuthKey]'
     
   contact:
     name: Stipter
@@ -17,7 +17,7 @@ info:
   version: "0.1"
 
 paths:
-  /signal/{municipalityCode}:
+  /{municipalityCode}/signal:
     parameters:
       - name: municipalityCode
         in: path
@@ -77,7 +77,29 @@ components:
       type: string
       pattern: ^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$
       maxLength: 200
-      example: "john.doe@gmail.com"              
+      example: "john.doe@gmail.com"   
+
+    document:
+      type: object
+      required:
+        - mimeType
+        - fileName
+        - file
+      properties:
+        mimeType:
+          type: string
+          description: Typically "application/pdf"
+          example: "application/pdf"
+        documentDescription:
+          type: string
+          description: Free format name, e.g. the name of the uploaded file.
+        fileName:
+          type: string
+          description: The file name of the document attachmentm including the extension which should be in line with the mimetype.
+        file:
+          type: string
+          format: binary
+          description: The binary content of the document we want to attach to a specialwelfare.           
 
     signal:
       type: object
@@ -137,6 +159,10 @@ components:
         zipCode:
           type: number
           maxLength: 5
+        documents:
+          type: array
+          items:
+            $ref: "#/components/schemas/document"
       additionalProperties:
         type: string
         description: For future use.
