@@ -120,6 +120,10 @@ components:
         signallerLastName:
           type: string
           description: First name of the signaller.
+        signallerKind:
+          type: string
+          enum: [Person, Organisation]
+          nullable: true
         signallerRelationship:
           type: string
           description: Signaller - Subject relationship.
@@ -137,7 +141,7 @@ components:
           description: signal description
         signalRoutingType:
           type: string
-          enum: [WMO, YOUTH]
+          enum: [WMO, Youth]
         subjectFirstName:
           type: string
           description: First name of the signaller.
@@ -148,6 +152,8 @@ components:
           type: boolean
         subjectEmail:
           $ref: "#/components/schemas/emailAddress"
+        subjectAddress:
+          type: string
         subjectPhonenumber:
           $ref: "#/components/schemas/phoneTelNo"
         isUrgent:
