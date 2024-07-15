@@ -17,7 +17,7 @@ info:
   version: "0.1"
 
 paths:
-  /{municipalityCode}/signal:
+  /{municipalityCode}/signals:
     parameters:
       - name: municipalityCode
         in: path
@@ -27,9 +27,9 @@ paths:
     post:
       tags:
         - Signals API
-      summary: Notifies Wizter when a signal is created
+      summary: Notifies Wizter when a signal needs to be created
       description: |-
-        This method should be called when a signal is created.
+        This method should be called when a user creates a signal through a municipality.
       requestBody:
         description: |+
           Contains
