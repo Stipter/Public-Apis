@@ -162,9 +162,6 @@ components:
           type: boolean
         consentInformationSharing:
           type: boolean
-        zipCode:
-          type: number
-          maxLength: 5
         documents:
           type: array
           items:
