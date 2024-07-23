@@ -171,6 +171,9 @@ components:
             $ref: "#/components/schemas/document"
       additionalProperties:
         type: string
-        description: For future use.
+        description: Fill as a key value pair any additional information.
+        example:
+          key: Available Days
+          value: Monday and Tuesday
 security:
    - ApiKeyAuth: []
