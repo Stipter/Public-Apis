@@ -99,7 +99,7 @@ components:
         file:
           type: string
           format: binary
-          description: The binary content of the document we want to attach to a specialwelfare.           
+          description: The binary content of the document we want to attach to a signal.           
 
     signal:
       type: object
@@ -147,7 +147,7 @@ components:
           description: First name of the signaller.
         subjectLastName:
           type: string
-          description: First name of the signaller.
+          description: Last name of the signaller.
         isSubjectContactInformationKnown:
           type: boolean
         subjectEmail:
@@ -161,6 +161,8 @@ components:
         isRiskyCase:
           type: boolean
         consentInformationSharing:
+          type: boolean
+        signallerIsClient:
           type: boolean
         documents:
           type: array
