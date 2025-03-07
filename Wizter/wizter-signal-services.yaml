@@ -134,6 +134,7 @@ components:
           example: "Stipter"
         signallerEmail:
           $ref: "#/components/schemas/emailAddress"
+          description: If sendConfirmationEmail field is true, this field becomes mandatory.
         signallerPhonenumber:
           $ref: "#/components/schemas/phoneTelNo"
         description:
@@ -168,6 +169,9 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/document"
+        sendConfirmationEmail:
+          type: boolean
+          description: If this field is true, signaller email becomes mandatory.
       additionalProperties:
         type: string
         description: Fill as a key value pair any additional information.
