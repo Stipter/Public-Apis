@@ -100,6 +100,34 @@ components:
           type: string
           format: binary
           description: The binary content of the document we want to attach to a signal.           
+    
+    additionalInformation:
+      type: object
+      properties:
+        key:
+          type: string
+          description: Key of the additional information.
+        value: 
+          type: string
+          description: Value of the additional information.
+      example:
+        key: Available Days
+        value: Monday and Tuesday
+
+    additionalInformationGroup:
+      type: object
+      required:
+      - title
+      - additionalInformation
+      properties:
+        title:
+          type: string
+          description: Title of the category.
+        additionalInformation:
+          type: array
+          items:
+            $ref: "#/components/schemas/additionalInformation"
+          description: Key-value pairs of additional information.
 
     signal:
       type: object
@@ -172,11 +200,10 @@ components:
         sendReceiptMail:
           type: boolean
           description: If this field is true, signaller email becomes mandatory.
-      additionalProperties:
-        type: string
-        description: Fill as a key value pair any additional information.
-        example:
-          key: Available Days
-          value: Monday and Tuesday
+        additionalInformationGroups:
+          type: array
+          items:
+            $ref: "#/components/schemas/additionalInformationGroup"
+      additionalProperties: false
 security:
    - ApiKeyAuth: []
