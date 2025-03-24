@@ -117,12 +117,12 @@ components:
     additionalInformationGroup:
       type: object
       required:
-      - title
+      - name
       - additionalInformation
       properties:
-        title:
+        name:
           type: string
-          description: Title of the category.
+          description: Name of the group.
         additionalInformation:
           type: array
           items:
