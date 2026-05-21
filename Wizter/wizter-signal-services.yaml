@@ -189,6 +189,7 @@ components:
           type: boolean
         urgencyLevel:
           type: string
+          nullable: true
         isRiskyCase:
           type: boolean
         consentInformationSharing:
