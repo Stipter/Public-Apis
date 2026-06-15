@@ -170,7 +170,7 @@ components:
           description: signal description
         signalRoutingType:
           type: string
-          enum: [WMO, Youth]
+          enum: [WMO, Youth, Unknown]
         subjectFirstName:
           type: string
           description: First name of the signaller.
