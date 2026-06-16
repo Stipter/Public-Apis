@@ -35,9 +35,7 @@ paths:
           Contains
           * known attributes for signaller, 
           * description,
-          * urgency,
-          * riskiness and
-          * consent for information sharing.
+          * urgency
         required: true
         content:
           application/json:
@@ -139,15 +137,13 @@ components:
         - signalRoutingType
         - isSubjectContactInformationKnown
         - isUrgent
-        - isRiskyCase
-        - consentInformationSharing
       properties:
         signallerFirstName:
           type: string
           description: First name of the signaller.
         signallerLastName:
           type: string
-          description: First name of the signaller.
+          description: Last name of the signaller.
         signallerKind:
           type: string
           enum: [Person, Organisation]
@@ -190,10 +186,6 @@ components:
         urgencyLevel:
           type: string
           nullable: true
-        isRiskyCase:
-          type: boolean
-        consentInformationSharing:
-          type: boolean
         signallerIsClient:
           type: boolean
         documents:
