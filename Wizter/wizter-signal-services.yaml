@@ -188,6 +188,9 @@ components:
           nullable: true
         signallerIsClient:
           type: boolean
+        clientNotApplicable:
+          type: boolean
+          description: Indicates whether a client is not applicable for this signal.
         documents:
           type: array
           items:
